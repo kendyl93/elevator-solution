@@ -9,15 +9,6 @@
     "test:watch": "npm test -- --watch",
     "build": "webpack --mode production"
   },
-  "jest": {
-    "moduleNameMapper": {
-      "\\.(css|scss)$": "<rootDir>/src/tests/__mocks__/styleMock.js",
-      "\\.(png|jpg|gif|ttf|eot|svg)$": "<rootDir>/src/tests/__mocks__/fileMock.js"
-    },
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/tests/setupTest.js"
-    ]
-  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
