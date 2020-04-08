@@ -1,0 +1,12 @@
+# dependencies
+/node_modules
+
+#server soecific
+/server/node_modules
+
+#client specific
+/client/dist
+/client/node_modules
+
+# misc
+.DS_Store

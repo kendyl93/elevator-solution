@@ -1,0 +1,24 @@
+// @import 'partials';
+@import './src/styles/';
+
+// #root {
+//   display: flex;
+//   flex-grow: 1;
+//   flex-direction: column;
+//   font-family: 'Montserrat', sans-serif;
+// }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: $marginUnit $marginUnit * 2;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: 'Montserrat', sans-serif;
+
+  @media screen and (min-width: $small) {
+    margin: 32px auto;
+    padding: $marginUnit;
+  }
+}
