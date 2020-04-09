@@ -1,20 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import Floor from './Floor';
+import Elevator from './Elevator';
+
+const floors = [{ id: 3 }, { id: 2 }, { id: 1 }];
+const DefaultElevator = { id: 1, direction: '-', idleFloor: 1 };
+
 const App = () => {
-  const [data, setData] = useState();
+  const [elevator, setElevator] = useState(DefaultElevator);
 
-  const handleClick = async () => {
-    const results = await axios.get('http://localhost:4000/api');
-
-    if (results.status === 200) {
-      setData(results.data.body);
-    }
-  };
   return (
     <div>
-      <button onClick={handleClick}>Download data from API</button>
-      {data}
+      <div>
+        {floors.map(({ id }) => (
+          <Floor id={id} setElevator={setElevator} elevator={elevator} />
+        ))}
+      </div>
+      <div>
+        <Elevator
+          id={elevator.id}
+          idleFloor={elevator.idleFloor}
+          direction={elevator.direction}
+        />
+      </div>
     </div>
   );
 };

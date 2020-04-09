@@ -8,8 +8,11 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+
 app.get('/api', (req, res) => {
   res.send({ body: 'Data from server' });
+
+
 });
 
 app.listen(PORT, () => {
