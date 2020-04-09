@@ -7,7 +7,29 @@
     "start": "webpack-dev-server --open --mode development --config webpack.config.js",
     "test": "jest",
     "test:watch": "npm test -- --watch",
+    "format": "prettier --check \"./src/**/*.js\"",
+    "format:fix": "prettier --write \"./src/**/*.js\"",
+    "lint": "eslint ./src --ext \".js,.jsx\" --max-warnings=0",
+    "lint:fix": "eslint ./src --ext \".js,.jsx\" --max-warnings=0 --fix",
+    "stylelint": "stylelint src/**/*.scss --cache",
+    "stylelint:fix": "stylelint src/**/*.scss --cache --fix",
+    "check": "npm run lint && npm run format && npm run stylelint",
     "build": "webpack --mode production"
+  },
+  "lint-staged": {
+    "src/**/{**/!(*.min).js,*.jsx,*.json,*.scss,*.css,*.md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "src/**/{**/!(*.min).js,*.jsx}": [
+      "eslint -c .eslintrc --fix",
+      "echo test",
+      "git add"
+    ],
+    "src/**/*.scss": [
+      "stylelint --syntax scss",
+      "git add"
+    ]
   },
   "author": "",
   "license": "ISC",
