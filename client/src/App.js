@@ -35,7 +35,7 @@ const App = () => {
             id={elevator.id}
             idleFloor={elevator.idleFloor}
             direction={elevator.direction}
-            busy={elevator.busy}
+            status={elevator.status}
           />
         ))}
       </div>

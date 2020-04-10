@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Elevator = ({ id, direction, idleFloor, busy }) => {
+const Elevator = ({ id, direction, idleFloor, status }) => {
   return (
     <div>
       <h2>
@@ -17,8 +17,8 @@ const Elevator = ({ id, direction, idleFloor, busy }) => {
         {direction}
       </p>
       <p>
-        busy:
-        {busy ? 'YES' : 'NO'}
+        status:
+        {status}
       </p>
     </div>
   );

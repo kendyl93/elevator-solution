@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { updateStatus } from './helpers';
 
 const isEligible = (direction, idleFloor, floor) => {
   if (direction === 0) {
@@ -10,7 +11,36 @@ const isEligible = (direction, idleFloor, floor) => {
   }
 };
 
-const handleRequest = (elevators, floor) => {
+const assignJob = (elevator, elevators, setElevators, floor) => {
+  if (floor == elevator.idleFloor) {
+    setElevators(
+      [
+        ...elevators.filter(({ id }) => id !== elevator.id),
+        { ...elevator, status: updateStatus(elevator) }
+      ].sort((a, b) => (a.id > b.id ? 1 : -1))
+    );
+  } else {
+    elevator.direction = floor - elevator.idleFloor > 0 ? 1 : -1;
+    setElevators(
+      [
+        ...elevators.filter(({ id }) => id !== elevator.id),
+        { ...elevator, status: updateStatus(elevator) }
+      ].sort((a, b) => (a.id > b.id ? 1 : -1))
+    );
+    setTimeout(() => {
+      elevator.idleFloor = floor;
+      elevator.direction = 0;
+      setElevators(
+        [
+          ...elevators.filter(({ id }) => id !== elevator.id),
+          { ...elevator, status: updateStatus(elevator) }
+        ].sort((a, b) => (a.id > b.id ? 1 : -1))
+      );
+    }, 1000 * Math.abs(floor - elevator.idleFloor));
+  }
+};
+
+const handleRequest = (elevators, setElevators, floor) => {
   var i,
     minIndex = -1,
     minDistance = Infinity;
@@ -28,7 +58,7 @@ const handleRequest = (elevators, floor) => {
   }
   if (minIndex != -1) {
     console.log({ ELEV: elevators[minIndex] });
-    // elevators[minIndex].assignJob(direction, floor);
+    assignJob(elevators[minIndex], elevators, setElevators, floor);
   } else {
     alert('no eligible elevators');
   }
@@ -48,15 +78,9 @@ const calculateDirection = (idleFloor, destinatedFloor) => {
   return -1;
 };
 
-const Floor = ({ id, elevators, setElevator }) => {
+const Floor = ({ id, elevators, setElevators }) => {
   const handleUpPressed = () => {
-    handleRequest(elevators, id);
-    // setElevator({
-    //   ...elevator,
-    //   idleFloor: id,
-    //   direction: calculateDirection(elevator.idleFloor, id),
-    //   busy: true
-    // });
+    handleRequest(elevators, setElevators, id);
   };
 
   return (
