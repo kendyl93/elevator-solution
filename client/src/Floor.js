@@ -1,23 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const calculateDirection = (idleFloor, destinatedFloor) => {
+  const destinationAndIdleFloorDifference = idleFloor - destinatedFloor;
+
+  if (destinationAndIdleFloorDifference === 0) {
+    return '-';
+  }
+
+  if (destinationAndIdleFloorDifference < 0) {
+    return 'UP';
+  }
+
+  return 'DOWN';
+};
+
 const Floor = ({ id, elevator, setElevator }) => {
   const handleUpPressed = () => {
     setElevator({
       ...elevator,
       idleFloor: id,
-      direction:
-        id - elevator.idleFloor === 0
-          ? '-'
-          : id - elevator.idleFloor > 0
-          ? 'UP'
-          : 'DOWN'
+      direction: calculateDirection(elevator.idleFloor, id)
     });
   };
 
   return (
     <div>
-      <h2>Floor {id}</h2>
+      <h2>
+        Floor
+        {id}
+      </h2>
       <button type="button" onClick={handleUpPressed}>
         CALL elevator
       </button>
