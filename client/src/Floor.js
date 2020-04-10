@@ -20,7 +20,8 @@ const Floor = ({ id, elevator, setElevator }) => {
     setElevator({
       ...elevator,
       idleFloor: id,
-      direction: calculateDirection(elevator.idleFloor, id)
+      direction: calculateDirection(elevator.idleFloor, id),
+      busy: true
     });
   };
 

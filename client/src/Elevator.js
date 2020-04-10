@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Elevator = ({ id, direction, idleFloor }) => {
+const Elevator = ({ id, direction, idleFloor, busy }) => {
   return (
     <div>
       <h2>
@@ -16,14 +16,19 @@ const Elevator = ({ id, direction, idleFloor }) => {
         direction:
         {direction}
       </p>
+      <p>
+        busy:
+        {busy ? 'YES' : 'NO'}
+      </p>
     </div>
   );
 };
 
 Elevator.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.number,
   direction: PropTypes.string,
-  idleFloor: PropTypes.number
+  idleFloor: PropTypes.number,
+  busy: PropTypes.bool
 };
 
 export default Elevator;
