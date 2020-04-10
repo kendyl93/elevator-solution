@@ -26,7 +26,7 @@ const Elevator = ({ id, direction, idleFloor, busy }) => {
 
 Elevator.propTypes = {
   id: PropTypes.number,
-  direction: PropTypes.string,
+  direction: PropTypes.number,
   idleFloor: PropTypes.number,
   busy: PropTypes.bool
 };

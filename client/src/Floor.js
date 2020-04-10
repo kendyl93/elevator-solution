@@ -1,28 +1,62 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const isEligible = (direction, idleFloor, floor) => {
+  if (direction === 0) {
+    // eligible, and return distance
+    return Math.abs(floor - idleFloor);
+  } else {
+    return -1;
+  }
+};
+
+const handleRequest = (elevators, floor) => {
+  var i,
+    minIndex = -1,
+    minDistance = Infinity;
+
+  for (i = 0; i < elevators.length; i++) {
+    var distanceIndex = isEligible(
+      elevators[i].direction,
+      elevators[i].idleFloor,
+      floor
+    );
+    if (distanceIndex >= 0 && distanceIndex < minDistance) {
+      minIndex = i;
+      minDistance = distanceIndex;
+    }
+  }
+  if (minIndex != -1) {
+    console.log({ ELEV: elevators[minIndex] });
+    // elevators[minIndex].assignJob(direction, floor);
+  } else {
+    alert('no eligible elevators');
+  }
+};
+
 const calculateDirection = (idleFloor, destinatedFloor) => {
   const destinationAndIdleFloorDifference = idleFloor - destinatedFloor;
 
   if (destinationAndIdleFloorDifference === 0) {
-    return '-';
+    return 0;
   }
 
   if (destinationAndIdleFloorDifference < 0) {
-    return 'UP';
+    return 1;
   }
 
-  return 'DOWN';
+  return -1;
 };
 
-const Floor = ({ id, elevator, setElevator }) => {
+const Floor = ({ id, elevators, setElevator }) => {
   const handleUpPressed = () => {
-    setElevator({
-      ...elevator,
-      idleFloor: id,
-      direction: calculateDirection(elevator.idleFloor, id),
-      busy: true
-    });
+    handleRequest(elevators, id);
+    // setElevator({
+    //   ...elevator,
+    //   idleFloor: id,
+    //   direction: calculateDirection(elevator.idleFloor, id),
+    //   busy: true
+    // });
   };
 
   return (
