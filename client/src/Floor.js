@@ -5,7 +5,12 @@ const Floor = ({ id, elevator, setElevator }) => {
     setElevator({
       ...elevator,
       idleFloor: id,
-      direction: elevator.idleFloor - id > 0 ? 'UP' : 'DOWN' //WRONG!
+      direction:
+        id - elevator.idleFloor === 0
+          ? '-'
+          : id - elevator.idleFloor > 0
+          ? 'UP'
+          : 'DOWN'
     });
   };
 
