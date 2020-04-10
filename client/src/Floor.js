@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Floor = ({ id, elevator, setElevator }) => {
   const handleUpPressed = () => {
@@ -22,6 +23,12 @@ const Floor = ({ id, elevator, setElevator }) => {
       </button>
     </div>
   );
+};
+
+Floor.propTypes = {
+  id: PropTypes.number,
+  elevator: PropTypes.object,
+  setElevator: PropTypes.func
 };
 
 export default Floor;
